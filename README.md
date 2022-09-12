@@ -10,11 +10,11 @@ O propósito do projeto é a criação de um **boilerplate** para projetos que s
   - [Executando o projeto](#executando-o-projeto)
 - [Documentações](#documentations)
 
-## Instalação {#installation}
+## <a name="installation"></a>Instalação
 
 Esse projeto utiliza o Docker e Docker Compose para facilitar a usabilidade. Para fazer rodar o projeto antes é necessário alterar algumas configurações sobre o projeto.
 
-### Configurações {#configurations}
+### <a name="configurations"></a>Configurações
 
 As configurações abaixo são referentes ao arquivo **docker-compose.yml**:
 
@@ -37,7 +37,7 @@ Caso queira verificar/interagir com o banco de dados, com os containers rodando,
 
 Para verificar o projeto acesse em:
 
-## Documentações {#documentations}
+## <a name="documentations"></a>Documentações
 
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [Requests](https://requests.readthedocs.io/en/latest/)
