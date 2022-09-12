@@ -30,7 +30,9 @@ Após fazer as configurações necessárias para rodar o projeto utilize o coman
 ### Verificando o projeto
 
 Após executar o Docker sem erros é possível verificar a integridade do projeto ao acessar [localhost](http://localhost:8000).
-Caso queira verificar/interagir com o banco de dados, com os containers rodando, execute o comando: `docker compose exec db bash` e terá acesso ao bash para poder acessar o banco com `mysql -h localhost -u root -p` e informe a senha do **usuário root**.
+Caso queira verificar/interagir com o banco de dados, com os containers rodando, execute o comando:
+`docker compose exec db bash` e terá acesso ao bash para poder acessar o banco.
+Execute o comando: `mysql -h localhost -u root -p` e informe a senha do **usuário root**.
 
 Para verificar o projeto acesse em:
 
