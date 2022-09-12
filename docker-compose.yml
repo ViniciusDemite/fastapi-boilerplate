@@ -1,0 +1,24 @@
+version: "3.3"
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: api-boilerplate
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 8000:8000
+    command: uvicorn ./app/main:app --reload
+
+  db:
+    image: mysql:8
+    container_name: db-boilerplate
+    environment:
+      - MYSQL_ROOT_PASSWORD=26f46d79d81123a4cb4f26217343d5902a124be52a1e27aa20d66089a2ebc1a2
+      - MYSQL_DATABASE=boilerplate
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=f1fc3058a3d055bc13923787515c638c8775491194034e3f13c436e21d23ff4b
