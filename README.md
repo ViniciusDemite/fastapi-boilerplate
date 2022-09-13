@@ -23,6 +23,11 @@ As configurações abaixo são referentes ao arquivo **docker-compose.yml**:
   - Crie uma por conta ou utilize o método `openssl rand -hex 32`
 - Alterar o nome do banco de dados na variável **MYSQL_DATABASE**
 
+As configurações abaixo se referem à variável de ambiente **.env**:
+
+- Faça uma cópia do arquivo [.env.sample](./app/.env.sample) com o nome de **.env**
+- Para as chaves utilize o comando `openssl rand -hex 32` para gerar um chave única
+
 ### Executando o projeto
 
 Após fazer as configurações necessárias para rodar o projeto utilize o comando: `docker compose up -d`.
@@ -43,3 +48,5 @@ Para verificar o projeto acesse em:
 - [Requests](https://requests.readthedocs.io/en/latest/)
 - [Pytest](https://docs.pytest.org/en/7.1.x/contents.html)
 - [SQLAlchemy](https://docs.sqlalchemy.org/en/14/)
+- [Python Jose](https://github.com/mpdavis/python-jose)
+- [Passlib](https://passlib.readthedocs.io/en/stable/)
