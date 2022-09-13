@@ -33,11 +33,11 @@ Na pasta [schemas](./schemas/) estão definidos os schemas (modelos) a serem usa
 
 O arquivo principal do projeto é o **main.py** onde se encontra as configurações necessárias para a execução do projeto.
 
+---
+
 ## <a name="env-variables"></a>Variáveis de ambiente
 
 As variáveis de ambiente, representadas pelo arquivo [.env.sample](./.env.sample), são necessárias para as configurações mais sigilosas da aplicação. Abaixo temos explicação sobre elas:
-
----
 
 ### JWT
 
