@@ -6,7 +6,7 @@
   - [Rotas](#rotas)
   - [Esquemas](#esquemas)
   - [Arquivo principal](#arquivo-principal)
-- [Variáveis de ambiente](#env-variables)
+- [Variáveis de ambiente](#variáveis-de-ambiente)
   - [JWT](#jwt)
 
 ## Estrutura do projeto
@@ -35,9 +35,9 @@ O arquivo principal do projeto é o **main.py** onde se encontra as configuraç�
 
 ---
 
-## <a name="env-variables"></a>Variáveis de ambiente
+## Variáveis de ambiente
 
-As variáveis de ambiente, representadas pelo arquivo [.env.sample](./.env.sample), são necessárias para as configurações mais sigilosas da aplicação. Abaixo temos explicação sobre elas:
+As variáveis de ambiente, representadas pelo arquivo [.env.sample](./.env.sample), são necessárias para as configurações mais sigilosas da aplicação. Abaixo temos explicação sobre elas.
 
 ### JWT
 
