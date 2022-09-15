@@ -1,7 +1,6 @@
 # Sumário
 
 - [Estrutura do projeto](#estrutura-do-projeto)
-  - [Controladores](#controladores)
   - [Modelos](#modelos)
   - [Rotas](#rotas)
   - [Esquemas](#esquemas)
@@ -16,10 +15,6 @@
 Aqui se encontra uma explicação mais detalhada sobre a estrutura do projeto para fins de facilidade de navegação e novas implementações.
 
 No arquivo [\_\_init\_\_.py](./__init__.py) se encontra o código para a utilização das variáveis de ambiente do projeto.
-
-### Controladores
-
-Na pasta [controllers](./controllers/) está definida a lógica das funções presentes em rotas.
 
 ### Modelos
 
