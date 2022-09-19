@@ -1,5 +1,6 @@
 from typing import Union
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class UserBase(BaseModel):
@@ -16,3 +17,9 @@ class UserUpdate(UserBase):
 
 class User(UserBase):
   id: int
+  is_active: bool
+  created_at: datetime
+  updated_at: datetime
+
+  class Config:
+    orm_mode = True

@@ -1,6 +1,9 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 from ..schemas.users import User, UserCreate, UserUpdate
+from ..dependencies.general import get_db
+from ..utils import user_crud as crud
 
 
 router = APIRouter(
@@ -22,12 +25,17 @@ def get_user_by_id(user_id: int):
   pass
 
 @router.post('/', response_model=User)
-def create_user(user: UserCreate):
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
   """# Cria uma usuário de acordo com os dados passados.
   
   O parâmetro user é um schema com base nos dados a serem recebidos.
   """
-  pass
+  db_user = crud.get_user_by_email(db, user.email)
+
+  if db_user:
+    raise HTTPException(status_code=400, detail="Email already registered")
+
+  return crud.create_user(db, user)
 
 @router.put('/{user_id}', response_model=User)
 def update_user(user_id: int, user: UserUpdate):
