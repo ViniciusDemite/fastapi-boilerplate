@@ -11,5 +11,5 @@ class User(Base):
   email = Column(String(100), unique=True)
   hashed_password = Column(String(255), nullable=False)
   is_active = Column(Boolean, nullable=False, default=True)
-  created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
-  updated_at = Column(DateTime(timezone=True), nullable=False, onupdate=func.utcnow())
+  created_at = Column(DateTime(timezone=True), nullable=False, default=func.now())
+  updated_at = Column(DateTime(timezone=True), nullable=True, default=None, onupdate=func.utcnow())

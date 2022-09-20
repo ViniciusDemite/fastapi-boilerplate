@@ -11,7 +11,8 @@ class UserCreate(UserBase):
   password: str
   confirm_password: str
 
-class UserUpdate(UserBase):
+class UserUpdate(BaseModel):
+  is_active: Union[bool, None] = None
   password: Union[str, None] = None
   confirm_password: Union[str, None] = None
 
@@ -19,7 +20,7 @@ class User(UserBase):
   id: int
   is_active: bool
   created_at: datetime
-  updated_at: datetime
+  updated_at: Union[datetime, None]
 
   class Config:
     orm_mode = True
