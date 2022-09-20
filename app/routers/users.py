@@ -46,12 +46,17 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
   return crud.create_user(db, user)
 
 @router.put('/{user_id}', response_model=User)
-def update_user(user_id: int, user: UserUpdate):
+def update_user(user_id: int, user: UserUpdate, db: Session = Depends(get_db)):
   """# Atualiza as informações do usuário de acordo com os dados passados.
   
   O parâmetro user é um schema com base nos dados a serem recebidos.
   """
-  pass
+  if user.password and user.password != user.confirm_password:
+    raise HTTPException(status_code=400, detail="Passwords do not match!")
+
+  updated_user = crud.update_user(db, user, user_id)
+
+  return updated_user
 
 @router.delete('/{user_id}', response_model=User)
 def delete_user(user_id: int, db: Session = Depends(get_db)):

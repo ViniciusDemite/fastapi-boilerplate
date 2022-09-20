@@ -11,7 +11,7 @@ class UserCreate(UserBase):
   password: str
   confirm_password: str
 
-class UserUpdate(BaseModel):
+class UserUpdate(UserBase):
   is_active: Union[bool, None] = None
   password: Union[str, None] = None
   confirm_password: Union[str, None] = None

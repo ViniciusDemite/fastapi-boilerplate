@@ -12,4 +12,4 @@ class User(Base):
   hashed_password = Column(String(255), nullable=False)
   is_active = Column(Boolean, nullable=False, default=True)
   created_at = Column(DateTime(timezone=True), nullable=False, default=func.now())
-  updated_at = Column(DateTime(timezone=True), nullable=True, default=None, onupdate=func.utcnow())
+  updated_at = Column(DateTime(timezone=True), nullable=True, default=None, onupdate=func.now())

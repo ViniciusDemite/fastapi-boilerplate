@@ -33,12 +33,22 @@ def create_user(db: Session, user: schema.UserCreate) -> schema.User:
 
 def update_user(db: Session, user: schema.UserUpdate, user_id: int) -> schema.User:
   db_user = get_user_by_id(db, user_id)
-  user.dict(exclude_unset=True)
-  db_user.dict().update(**user)
+
+  for var, value in vars(user).items():
+    setattr(db_user, var, value) if value else None
 
   # TODO adicionar criptografia da senha caso seja alterada
+  if user.password:
+    fake_hashed_password = user.password + "notreallyhashed"
+    db_user.hashed_password = fake_hashed_password
+    # db_user = model.User(
+    #   name=db_user.name,
+    #   hashed_password=fake_hashed_password
+    # )
 
+  db.add(db_user)
   db.commit()
+  db.refresh(db_user)
 
   return db_user
 
