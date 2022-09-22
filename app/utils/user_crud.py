@@ -1,14 +1,9 @@
 from typing import List
 from sqlalchemy.orm import Session
-from passlib.context import CryptContext
 from ..models import users as model
 from ..schemas import users as schema
+from .encrypt import hash_password
 
-
-def hash_password(password: str) -> str:
-  pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-  return pwd_context.hash(password)
 
 def get_user_by_id(db: Session, user_id: int) -> schema.User:
   return db.query(model.User).filter(model.User.id == user_id).first()
@@ -49,6 +44,7 @@ def update_user(db: Session, user: schema.UserUpdate, user_id: int) -> schema.Us
   db.refresh(db_user)
 
   return db_user
+
 
 def delete_user(db: Session, user_id: int) -> schema.User:
   db_user = get_user_by_id(db, user_id)
