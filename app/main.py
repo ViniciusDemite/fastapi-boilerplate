@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import users
+from .config.database import engine
+from .config.database import Base
 
 
 api_description = """
@@ -11,6 +13,8 @@ origins = [
     "http://localhost",
     "http://localhost:8000",
 ]
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
   title='FastAPI Boilerplate',

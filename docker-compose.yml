@@ -1,24 +1,26 @@
-version: "3"
+version: "3.8"
 
 services:
   db:
     image: mysql:8
-    container_name: db-boilerplate
+    container_name: db_boilerplate
+    cap_add:
+      - SYS_NICE
+    restart: always
+    expose:
+      - "3306"
     ports:
-      - "3307:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=26f46d79d81123a4cb4f26217343d5902a124be52a1e27aa20d66089a2ebc1a2
-      - MYSQL_DATABASE=boilerplate
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=f1fc3058a3d055bc13923787515c638c8775491194034e3f13c436e21d23ff4b
+      - "0.0.0.0:3307:3306"
+    env_file:
+      - ./app/.env
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysqlmysql_db
 
   api:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: api-boilerplate
+    container_name: api_boilerplate
     restart: unless-stopped
     working_dir: /app
     volumes:
@@ -30,4 +32,5 @@ services:
     command: uvicorn --host=0.0.0.0 app.main:app --reload
 
 volumes:
-  db_data: {}
+  db_data:
+    driver: local
