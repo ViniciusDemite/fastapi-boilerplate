@@ -1,8 +1,14 @@
 from typing import List
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
 from ..models import users as model
 from ..schemas import users as schema
 
+
+def hash_password(password: str) -> str:
+  pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+  return pwd_context.hash(password)
 
 def get_user_by_id(db: Session, user_id: int) -> schema.User:
   return db.query(model.User).filter(model.User.id == user_id).first()
@@ -17,12 +23,10 @@ def get_users(db: Session, skip: int = 0, limit: int = 100) -> List[schema.User]
 
 
 def create_user(db: Session, user: schema.UserCreate) -> schema.User:
-  # TODO adicionar criptografia de senha 
-  fake_hashed_password = user.password + "notreallyhashed"
   db_user = model.User(
     name=user.name,
     email=user.email,
-    hashed_password=fake_hashed_password
+    hashed_password=hash_password(user.password)
   )
   db.add(db_user)
   db.commit()
@@ -37,14 +41,8 @@ def update_user(db: Session, user: schema.UserUpdate, user_id: int) -> schema.Us
   for var, value in vars(user).items():
     setattr(db_user, var, value) if value else None
 
-  # TODO adicionar criptografia da senha caso seja alterada
   if user.password:
-    fake_hashed_password = user.password + "notreallyhashed"
-    db_user.hashed_password = fake_hashed_password
-    # db_user = model.User(
-    #   name=db_user.name,
-    #   hashed_password=fake_hashed_password
-    # )
+    db_user.hashed_password = hash_password(user.password)
 
   db.add(db_user)
   db.commit()
