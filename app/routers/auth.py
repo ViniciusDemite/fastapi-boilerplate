@@ -17,7 +17,7 @@ router = APIRouter(
   tags=['auth']
 )
 
-def authenticate_user(user_email: str, password: str, db: Session = Depends(get_db)) -> Union[User, None]:
+def authenticate_user(user_email: str, password: str, db: Session) -> Union[User, None]:
   db_user = get_user_by_email(db, user_email)
 
   if not db_user or not verify_password(password, db_user.hashed_password):
@@ -40,11 +40,12 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
 
   return encoded_jwt
 
-@router.get('/token', response_model=Token)
+@router.post('/token', response_model=Token)
 async def login_for_access_token(
   form_data: OAuth2PasswordRequestForm = Depends(),
+  db: Session = Depends(get_db)
   ) -> Token:
-  user = authenticate_user(form_data.username, form_data.password)
+  user = authenticate_user(form_data.username, form_data.password, db)
 
   if not user:
     raise HTTPException(
@@ -54,7 +55,7 @@ async def login_for_access_token(
     )
 
   access_token_expire = timedelta(
-    minutes=os.getenv('ACCESS_TOKEN_EXPIRATION_MINUTES')
+    minutes=int(os.getenv('ACCESS_TOKEN_EXPIRATION_MINUTES'))
   )
   access_token = create_access_token({"sub": user.name}, access_token_expire)
 
