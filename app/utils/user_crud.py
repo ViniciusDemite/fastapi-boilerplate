@@ -13,13 +13,18 @@ def get_user_by_email(db: Session, email: str) -> schema.User:
   return db.query(model.User).filter(model.User.email == email).first()
 
 
+def get_user_by_username(db: Session, username: str) -> schema.User:
+  return db.query(model.User).filter(model.User.username == username).first()
+
+
 def get_users(db: Session, skip: int = 0, limit: int = 100) -> List[schema.User]:
   return db.query(model.User).offset(skip).limit(limit).all()
 
 
 def create_user(db: Session, user: schema.UserCreate) -> schema.User:
   db_user = model.User(
-    name=user.name,
+    full_name=user.full_name,
+    username=user.username,
     email=user.email,
     hashed_password=hash_password(user.password)
   )

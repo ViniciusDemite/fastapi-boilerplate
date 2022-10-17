@@ -4,17 +4,21 @@ from datetime import datetime
 
 
 class UserBase(BaseModel):
-  name: str
+  full_name: str
+  username: str
   email: str
+
+class UserUpdate(BaseModel):
+  full_name: Union[str, None] = None
+  username: Union[str, None] = None
+  email: Union[str, None] = None
+  is_active: Union[bool, None] = None
+  password: Union[str, None] = None
+  confirm_password: Union[str, None] = None
 
 class UserCreate(UserBase):
   password: str
   confirm_password: str
-
-class UserUpdate(UserBase):
-  is_active: Union[bool, None] = None
-  password: Union[str, None] = None
-  confirm_password: Union[str, None] = None
 
 class User(UserBase):
   id: int
