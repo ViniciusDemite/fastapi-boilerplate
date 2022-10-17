@@ -39,7 +39,8 @@ def update_user(db: Session, user: schema.UserUpdate, user_id: int) -> schema.Us
   db_user = get_user_by_id(db, user_id)
 
   for var, value in vars(user).items():
-    setattr(db_user, var, value) if value else None
+    if value is not None:
+      setattr(db_user, var, value)
 
   if user.password:
     db_user.hashed_password = hash_password(user.password)
