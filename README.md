@@ -30,7 +30,12 @@ As configurações abaixo se referem à variável de ambiente **.env**:
 
 ### Executando o projeto
 
-Após fazer as configurações necessárias para rodar o projeto utilize o comando: `docker compose up -d`.
+Após fazer as configurações necessárias para rodar o projeto utilize o comando instancie as aplicações utilizando os comando:
+
+- `docker compose up db -d` para inicializar a aplicação do banco de dados
+- `docker compose up api` para inicializar a aplicação da API
+
+**Obs.:** é possível que ao inicializar a API o banco de dados ainda esteja terminando de ser configurado o que necessitaria de reiniciar a aplicação. O mesmo pode ocorrer caso deseje utilizar o comando `docker compose up`.
 
 ### Verificando o projeto
 
