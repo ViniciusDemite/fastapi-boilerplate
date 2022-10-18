@@ -1,4 +1,5 @@
 from http.client import HTTPException
+from typing import Union
 from fastapi import status
 from typing import List
 from sqlalchemy.orm import Session
@@ -7,15 +8,15 @@ from ..schemas import users as schema
 from .encrypt import hash_password
 
 
-def get_user_by_id(db: Session, user_id: int) -> schema.User:
+def get_user_by_id(db: Session, user_id: int) -> Union[schema.User, None]:
   return db.query(model.User).filter(model.User.id == user_id).first()
 
 
-def get_user_by_email(db: Session, email: str) -> schema.User:
+def get_user_by_email(db: Session, email: str) -> Union[schema.User, None]:
   return db.query(model.User).filter(model.User.email == email).first()
 
 
-def get_user_by_username(db: Session, username: str) -> schema.User:
+def get_user_by_username(db: Session, username: str) -> Union[schema.User, None]:
   return db.query(model.User).filter(model.User.username == username).first()
 
 
@@ -30,6 +31,7 @@ def create_user(db: Session, user: schema.UserCreate) -> schema.User:
     email=user.email,
     hashed_password=hash_password(user.password)
   )
+
   db.add(db_user)
   db.commit()
   db.refresh(db_user)
