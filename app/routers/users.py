@@ -4,12 +4,14 @@ from sqlalchemy.orm import Session
 from ..schemas.users import User, UserCreate, UserUpdate
 from ..dependencies.general import get_db
 from ..utils import user_crud as crud
-
+from ..utils.auth import get_active_user
 
 router = APIRouter(
   prefix='/users',
-  tags=['users']
+  tags=['users'],
+  dependencies=[Depends(get_active_user)]
 )
+
 
 @router.get('/', response_model=List[User])
 def list_users(db: Session = Depends(get_db)):
@@ -18,6 +20,10 @@ def list_users(db: Session = Depends(get_db)):
   O parâmetro query é utilizado para fazer o filtro de usuários.
   """
   return crud.get_users(db)
+
+@router.get('/me')
+def get_current_user_data(user: User = Depends(get_active_user)):
+  return user
 
 @router.get('/{user_id}', response_model=User)
 def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
