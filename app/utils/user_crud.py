@@ -1,3 +1,5 @@
+from http.client import HTTPException
+from fastapi import status
 from typing import List
 from sqlalchemy.orm import Session
 from ..models import users as model
@@ -42,7 +44,19 @@ def update_user(db: Session, user: schema.UserUpdate, user_id: int) -> schema.Us
     if value is not None:
       setattr(db_user, var, value)
 
-  if user.password:
+  if user.password is not None:
+    if user.confirm_password is None:
+      raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        details="Please confirm your password"
+      )
+
+    if user.password != user.confirm_password:
+      raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        details="Passwords do not match"
+      )
+
     db_user.hashed_password = hash_password(user.password)
 
   db.add(db_user)
